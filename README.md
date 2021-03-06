@@ -1,6 +1,7 @@
 # Emulator collection for Nintendo® Game & Watch™
 
 This is a port of the [retro-go](https://github.com/ducalex/retro-go) emulator collection that is intended to run on the Nintendo® Game & Watch™: Super Mario Bros. 2020 edition.
+The second bank support is based on [macohime's guide](https://maco.link/how-to-get-launcher-and-retrogo-on-your-g&w.php).
 
 :exclamation: you are on a development fork.
 

@@ -6,6 +6,9 @@ DEBUG ?= 1
 # optimization
 OPT ?= -Og
 
+# always large flash
+LARGE_FLASH ?= 1
+
 # Set to 0 to suppress dirty submodule warning
 CHECK_DIRTY_SUBMODULE ?= 1
 
@@ -425,7 +428,7 @@ flash_intflash_nc: $(BUILD_DIR)/$(TARGET)_intflash.bin
 .PHONY: flashx
 
 flash_extflash: $(BUILD_DIR)/$(TARGET)_extflash.bin
-	$(FLASHLOADER) $(BUILD_DIR)/$(TARGET)_extflash.bin
+	$(FLASHLOADER) $(BUILD_DIR)/$(TARGET)_extflash.bin 0x100000
 .PHONY: flash_extflash
 
 # Programs both the external and internal flash.

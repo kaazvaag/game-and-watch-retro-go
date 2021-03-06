@@ -220,7 +220,7 @@ void store_erase(const uint8_t *flash_ptr, size_t size)
   );
 
   // Convert mem mapped pointer to flash address
-  uint32_t save_address = flash_ptr - &__EXTFLASH_START__;
+  uint32_t save_address = flash_ptr - &__EXTFLASH_REAL__;
 
   // Only allow 4kB aligned pointers
   assert((save_address & (4*1024 - 1)) == 0);
@@ -260,7 +260,7 @@ void store_erase(const uint8_t *flash_ptr, size_t size)
 void store_save(const uint8_t *flash_ptr, const uint8_t *data, size_t size)
 {
   // Convert mem mapped pointer to flash address
-  uint32_t save_address = flash_ptr - &__EXTFLASH_START__;
+  uint32_t save_address = flash_ptr - &__EXTFLASH_REAL__;
 
   // Only allow 4kB aligned pointers
   assert((save_address & (4*1024 - 1)) == 0);

@@ -78,6 +78,8 @@ void odroid_system_switch_app(int app)
 
     switch (app) {
     case 0:
+        *((uint32_t *)0x2001FFF8) = 0x544F4F42; // "BOOT"
+        *((uint32_t *)0x2001FFFC) = 0x08100000; // vector table
         NVIC_SystemReset();
         break;
     default:

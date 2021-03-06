@@ -428,7 +428,7 @@ int main(void)
   MX_SPI2_Init();
   MX_OCTOSPI1_Init();
   MX_SAI1_Init();
-  MX_RTC_Init();
+  //MX_RTC_Init();
   MX_DAC1_Init();
   MX_DAC2_Init();
   MX_WWDG1_Init();
@@ -594,7 +594,7 @@ void SystemClock_Config(void)
   PeriphClkInitStruct.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLL2;
   PeriphClkInitStruct.Spi123ClockSelection = RCC_SPI123CLKSOURCE_CLKP;
   PeriphClkInitStruct.AdcClockSelection = RCC_ADCCLKSOURCE_PLL2;
-  PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+  PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInitStruct.TIMPresSelection = RCC_TIMPRES_ACTIVATED;
 
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)

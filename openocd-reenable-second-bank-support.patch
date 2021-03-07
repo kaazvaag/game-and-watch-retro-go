@@ -1,0 +1,34 @@
+From a99c2b11b6c435f782e6e5f0341a592189fb9b47 Mon Sep 17 00:00:00 2001
+From: AntiCat <github@anticat.ch>
+Date: Sun, 7 Mar 2021 09:15:36 +0100
+Subject: [PATCH] openocd: reenable second bank support
+
+---
+ src/flash/nor/stm32h7x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/flash/nor/stm32h7x.c b/src/flash/nor/stm32h7x.c
+index 52e3e0e87..59645bc3a 100644
+--- a/src/flash/nor/stm32h7x.c
++++ b/src/flash/nor/stm32h7x.c
+@@ -207,7 +207,7 @@ static const struct stm32h7x_part_info stm32h7x_parts[] = {
+ 	.block_size			= 32,
+ 	.max_flash_size_kb	= 1024,
+ 	.max_bank_size_kb	= 1024,
+-	.has_dual_bank		= false,
++	.has_dual_bank		= true,
+ 	.fsize_addr			= 0x1FF1E880,
+ 	.wps_group_size		= 1,
+ 	.wps_mask			= 0xFF,
+@@ -818,7 +818,7 @@ static int stm32x_probe(struct flash_bank *bank)
+ 		 *  - the second bank starts always from 0x08100000
+ 		 */
+ 		if (flash_size_in_kb == 128)
+-			has_dual_bank = false;
++			has_dual_bank = true;
+ 		else
+ 			/* flash size is 2M or 1M */
+ 			flash_size_in_kb /= 2;
+-- 
+2.30.1
+

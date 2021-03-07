@@ -419,12 +419,12 @@ openocd:
 
 # Programs the internal flash using a new OpenOCD instance
 flash_intflash: $(BUILD_DIR)/$(TARGET)_intflash.bin
-	$(OPENOCD) -f $(FLSHLD_DIR)/interface_$(ADAPTER).cfg -c "program $< 0x08000000 verify reset exit"
+	$(OPENOCD) -f $(FLSHLD_DIR)/interface_$(ADAPTER).cfg -c "program $< 0x08100000 verify reset exit"
 .PHONY: flash_intflash
 
 # Flashes using an existing openocd instance
 flash_intflash_nc: $(BUILD_DIR)/$(TARGET)_intflash.bin
-	echo "program $< 0x08000000 verify reset" | nc -c localhost 4444
+	echo "program $< 0x08100000 verify reset" | nc -c localhost 4444
 .PHONY: flashx
 
 flash_extflash: $(BUILD_DIR)/$(TARGET)_extflash.bin

@@ -1,5 +1,10 @@
 # Emulator collection for Nintendo® Game & Watch™
 
+_This fork adds support for "MX25U51245G 54" 64MByte Flash. If you have not yet soldiered the chip you are better of trying to get the
+"MX25U51245G" instead of the "MX25U51245G 54" first. The former has better backwards compatibility.
+
+I've also adjusted the [Flashloader](https://github.com/drandreas/game-and-watch-flashloader)._
+
 This is a port of the [retro-go](https://github.com/ducalex/retro-go) emulator collection that is intended to run on the Nintendo® Game & Watch™: Super Mario Bros. 2020 edition.
 The second bank support is based on [macohime's guide](https://maco.link/how-to-get-launcher-and-retrogo-on-your-g&w.php).
 Moving retro-go to the second bank makes it loadable with [Tim Schuerewegen's Homebrew Menu](http://users.skynet.be/bk327964/gnw/).

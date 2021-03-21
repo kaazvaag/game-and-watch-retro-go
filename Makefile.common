@@ -16,12 +16,12 @@ CHECK_DIRTY_SUBMODULE ?= 1
 CHECK_TOOLS ?= 1
 
 # Set to 1 to enable 16MB external flash support
-LARGE_FLASH ?= 0
+LARGE_FLASH ?= 1
 
 # User may override external flash size by setting EXTFLASH_SIZE
 ifeq ($(LARGE_FLASH),1)
 	# 16MB
-	EXTFLASH_SIZE ?= 16777216
+	EXTFLASH_SIZE ?= 67108864
 else
 	# 1MB
 	EXTFLASH_SIZE ?= 1048576

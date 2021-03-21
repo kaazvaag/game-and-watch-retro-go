@@ -273,7 +273,7 @@ void _OSPI_Read(OSPI_HandleTypeDef *hospi, uint32_t address, uint8_t *buffer, si
   sCommand.AddressSize           = HAL_OSPI_ADDRESS_32_BITS;
   sCommand.AlternateBytesMode    = HAL_OSPI_ALTERNATE_BYTES_NONE;
   sCommand.NbData = buffer_size;
-  sCommand.DummyCycles           = 8;
+  sCommand.DummyCycles           = 10;
   sCommand.DQSMode               = HAL_OSPI_DQS_DISABLE;
   sCommand.SIOOMode              = HAL_OSPI_SIOO_INST_ONLY_FIRST_CMD;
   sCommand.InstructionDtrMode    = HAL_OSPI_INSTRUCTION_DTR_DISABLE;
@@ -331,7 +331,7 @@ void OSPI_EnableMemoryMappedMode(OSPI_HandleTypeDef *spi) {
     .DQSMode = HAL_OSPI_DQS_DISABLE,
     .AddressSize = HAL_OSPI_ADDRESS_32_BITS,
     .SIOOMode = HAL_OSPI_SIOO_INST_EVERY_CMD,
-    .DummyCycles = 8,
+    .DummyCycles = 10,
     .AlternateBytesSize = HAL_OSPI_ALTERNATE_BYTES_8_BITS,
     .AlternateBytes = 0x00,
     .NbData = 0,

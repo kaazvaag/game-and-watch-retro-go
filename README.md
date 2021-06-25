@@ -2,6 +2,10 @@
 
 This is a port of the [retro-go](https://github.com/ducalex/retro-go) emulator collection that is intended to run on the Nintendo® Game & Watch™: Super Mario Bros. 2020 edition.
 
+:This repository is a fork of [https://github.com/kbeckmann](https://github.com/kbeckmann).
+:It is used to develop and  experimente handheld console emulators on STM32 platform.
+:If you attend to experiment it, you may need to consider [https://github.com/bzhxx/game-and-watch-retro-go](https://github.com/bzhxx/game-and-watch-retro-go) in the following section.
+
 Supported emulators:
 
 - GB / GBC (Gameboy / Gameboy Color)
@@ -9,6 +13,7 @@ Supported emulators:
 - SMS (Sega Master System)
 - GG (Sega Game Gear)
 - PCE (PC Engine / TurboGrafx-16)
+- [LCD-Game-Emulator](https://github.com/bzhxx/LCD-Game-Emulator) (Game & Watch / Konami / Tiger Electronics / Elektronika  )
 
 ## How to report issues
 
@@ -71,8 +76,9 @@ cd game-and-watch-retro-go
 # cp /path/to/rom.gb ./roms/gb/
 # cp /path/to/rom.nes ./roms/nes/
 # cp /path/to/rom.sms ./roms/sms/
-# cp /path/to/rom.nes ./roms/gg/
-# cp /path/to/pce.nes ./roms/pce/
+# cp /path/to/rom.gg ./roms/gg/
+# cp /path/to/rom.pce ./roms/pce/
+# cp /path/to/rom.gw ./roms/gw/
 
 # On a Mac running make < v4 you have to manually download the HAL package by running:
 # make download_sdk

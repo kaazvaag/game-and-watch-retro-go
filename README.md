@@ -2,9 +2,11 @@
 
 This is a port of the [retro-go](https://github.com/ducalex/retro-go) emulator collection that is intended to run on the Nintendo® Game & Watch™: Super Mario Bros. 2020 edition.
 
-:This repository is a fork of [https://github.com/kbeckmann](https://github.com/kbeckmann).
-:It is used to develop and  experimente handheld console emulators on STM32 platform.
-:If you attend to experiment it, you may need to consider [https://github.com/bzhxx/game-and-watch-retro-go](https://github.com/bzhxx/game-and-watch-retro-go) in the following section.
+:exclamation: you are on a development fork.
+**This repository is a fork of [https://github.com/kbeckmann](https://github.com/kbeckmann).
+It is used to develop and experimente handheld console emulators on STM32 platform.
+If you attend to experiment it, you may need to consider [https://github.com/bzhxx/game-and-watch-retro-go](https://github.com/bzhxx/game-and-watch-retro-go) in the following section.
+Otherwise, if you are looking for stable release, please use the origin [https://github.com/kbeckmann](https://github.com/kbeckmann).**
 
 Supported emulators:
 

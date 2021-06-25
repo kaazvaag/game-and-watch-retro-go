@@ -7,7 +7,7 @@ This is a port of the [retro-go](https://github.com/ducalex/retro-go) emulator c
 **This repository is a fork of [https://github.com/kbeckmann](https://github.com/kbeckmann).
 It is used to develop handheld console emulators on STM32 platform like [LCD-Game-Emulator](https://github.com/bzhxx/LCD-Game-Emulator).
 If you attend to experiment it, you may need to consider [https://github.com/bzhxx/game-and-watch-retro-go](https://github.com/bzhxx/game-and-watch-retro-go) in the following section.
-Otherwise, if you are looking for stable release, please use origin: [https://github.com/kbeckmann](https://github.com/kbeckmann).**
+Otherwise, if you are looking for stable release, please use origin: [https://github.com/kbeckmann/game-and-watch-retro-go](https://github.com/kbeckmann/game-and-watch-retro-go).**
 
 Supported emulators:
 

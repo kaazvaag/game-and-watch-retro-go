@@ -104,7 +104,7 @@ static void gw_sound_submit()
     {
         for (int i = 0; i < GW_AUDIO_BUFFER_LENGTH; i++)
         {
-            audiobuffer_dma[i + offset] = (factor) * (gw_audio_buffer[i]);
+            audiobuffer_dma[i + offset] = (factor) * (gw_audio_buffer[i] << 6);
         }
     }
 

@@ -307,6 +307,8 @@ class ROMParser():
             save_size = 60 * 1024
         elif folder == "pce":
             save_size = 76 * 1024
+        elif folder == "gw":
+            save_size = 4 * 1024
         else:
             save_size = 0
 
@@ -368,6 +370,11 @@ class ROMParser():
         total_save_size += save_size
         total_rom_size += rom_size
         build_config += "#define ENABLE_EMULATOR_SMS\n" if rom_size > 0 else ""
+
+        save_size, rom_size = self.generate_system("Core/Src/retro-go/gw_roms.c", "Game & Watch", "gw_system", "gw", ["gw"], "ROM_GW_", "SAVE_GW_")
+        total_save_size += save_size
+        total_rom_size += rom_size
+        build_config += "#define ENABLE_EMULATOR_GW\n" if rom_size > 0 else ""
 
         save_size, rom_size = self.generate_system("Core/Src/retro-go/gg_roms.c", "Sega Game Gear", "gg_system", "gg", ["gg"], "SAVE_GG_")
         total_save_size += save_size

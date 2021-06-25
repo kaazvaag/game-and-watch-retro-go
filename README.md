@@ -5,6 +5,7 @@ This is a port of the [retro-go](https://github.com/ducalex/retro-go) emulator c
 :exclamation: you are on a development fork.
 
 **This repository is a fork of [https://github.com/kbeckmann](https://github.com/kbeckmann).**
+
 **It is used to develop handheld console emulators on STM32 platform like [LCD-Game-Emulator](https://github.com/bzhxx/LCD-Game-Emulator).**
 
 **If you attend to experiment it,

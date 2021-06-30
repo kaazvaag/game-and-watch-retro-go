@@ -179,9 +179,9 @@ static void gw_debug_bar()
         overflow_count++;
 
     if (m_halt != 0)
-	    sprintf(debugMsg, "%04dus EMU:%04dus FX:%04dus %d%%+%d %d HALT", loop_duration_us, proc_duration_us, blit_duration_us, busy_percent, overflow_count,m_r_out);
+	    sprintf(debugMsg, "%04dus EMU:%04dus FX:%04dus %d%%+%d HALT", loop_duration_us, proc_duration_us, blit_duration_us, busy_percent, overflow_count);
     else
-        sprintf(debugMsg, "%04dus EMU:%04dus FX:%04dus %d%%+%d %d", loop_duration_us, proc_duration_us, blit_duration_us, busy_percent, overflow_count,m_r_out);
+        sprintf(debugMsg, "%04dus EMU:%04dus FX:%04dus %d%%+%d", loop_duration_us, proc_duration_us, blit_duration_us, busy_percent, overflow_count);
 
     odroid_overlay_draw_text(0, 0, GW_SCREEN_WIDTH, debugMsg, C_GW_YELLOW, C_GW_RED);
 }
@@ -242,7 +242,7 @@ int app_main_gw(uint8_t load_state)
             odroid_dialog_choice_t options[] = {
                 ODROID_DIALOG_CHOICE_LAST};
             odroid_overlay_game_menu(options);
-            debug_enable = !debug_enable;
+           //debug_enable = !debug_enable;
         }
 
         if (power_pressed != joystick.values[ODROID_INPUT_POWER])
@@ -256,13 +256,12 @@ int app_main_gw(uint8_t load_state)
                 GW_EnterDeepSleep();
             }
         }
-        // uint startTime = get_elapsed_time();
-        // bool drawFrame = !skipFrames;
 
         /* Emulate and Blit */
         // Call the emulator function with number of clock cycles
         // to execute on the emulated device
-        gw_system_run(GW_SYSTEM_CYCLES);
+        // multiply the number of cycles to emulate by speedup factor
+        gw_system_run(GW_SYSTEM_CYCLES*(1+app->speedupEnabled));
 
         /* get how many cycles have been spent in the emulator */
         proc_cycles = get_dwt_cycles();
@@ -278,26 +277,7 @@ int app_main_gw(uint8_t load_state)
             /* get how many cycles have been spent in graphics rendering */
             blit_cycles = get_dwt_cycles() - proc_cycles;
         }
-
         /****************************************************************************/
-
-        // See if we need to skip a frame to keep up
-        // if (skipFrames == 0)
-        // {
-        //     if (get_elapsed_time_since(startTime) > frameTime) skipFrames = 1;
-        //     if (app->speedupEnabled) {
-        //         skipFrames += app->speedupEnabled * 2;
-        //         skippedFrames += app->speedupEnabled * 2;
-        //     }
-        // }
-        // else if (skipFrames > 0)
-        // {
-
-        //     skipFrames--;
-
-        // }
-        // Tick before submitting audio/syncing
-        // odroid_system_tick(!drawFrame, fullFrame, get_elapsed_time_since(startTime));
 
         /* copy audio samples for DMA */
         gw_sound_submit();

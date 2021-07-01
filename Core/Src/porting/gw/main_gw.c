@@ -11,6 +11,7 @@
 #include "stm32h7xx_hal.h"
 
 #include "common.h"
+#include "rom_manager.h"
 
 /* G&W system support */
 #include "gw_system.h"
@@ -25,34 +26,24 @@
 
 static odroid_gamepad_state_t joystick;
 
-//static uint32_t pause_pressed;
-//static uint32_t power_pressed;
+static unsigned char state_save_buffer[sizeof(gw_state_t)];
 
-// static bool fullFrame = false;
-// static uint32_t skipFrames = 0;
-
-// static uint32_t skippedFrames = 0;
-
-void gw_system_netplay_callback(netplay_event_t event, void *arg)
-{
-    // Where we're going we don't need netplay!
-    // idea use a shared buffer over the SWD interface to TX/RX data :)
-    // Bluetooth LE bridge ?
-}
-
-bool gw_system_SaveState(char *pathName)
+static bool gw_system_SaveState(char *pathName)
 {
     printf("Saving state...\n");
 
-    /*     memset(state_save_buffer, '\x00', sizeof(state_save_buffer));
-    size_t size = gw_state_save(state_save_buffer, sizeof(state_save_buffer));
-    store_save(ACTIVE_FILE->save_address, state_save_buffer, size); */
+    memset(state_save_buffer, '\x00', sizeof(state_save_buffer));
+    gw_state_save(state_save_buffer);
+    store_save(ACTIVE_FILE->save_address, state_save_buffer, sizeof(state_save_buffer));
+    printf("Saving state done!\n");
     return false;
 }
 
-bool gw_system_LoadState(char *pathName)
+static bool gw_system_LoadState(char *pathName)
 {
-    //  gw_state_load(ACTIVE_FILE->save_address, ACTIVE_FILE->save_size);
+    printf("Loading state...\n");
+    gw_state_load(ACTIVE_FILE->save_address);
+    printf("Loading state done!\n");
     return true;
 }
 
@@ -179,7 +170,7 @@ static void gw_debug_bar()
         overflow_count++;
 
     if (m_halt != 0)
-	    sprintf(debugMsg, "%04dus EMU:%04dus FX:%04dus %d%%+%d HALT", loop_duration_us, proc_duration_us, blit_duration_us, busy_percent, overflow_count);
+        sprintf(debugMsg, "%04dus EMU:%04dus FX:%04dus %d%%+%d HALT", loop_duration_us, proc_duration_us, blit_duration_us, busy_percent, overflow_count);
     else
         sprintf(debugMsg, "%04dus EMU:%04dus FX:%04dus %d%%+%d", loop_duration_us, proc_duration_us, blit_duration_us, busy_percent, overflow_count);
 
@@ -192,7 +183,7 @@ int app_main_gw(uint8_t load_state)
 {
 
     odroid_system_init(ODROID_APPID_GW, GW_AUDIO_FREQ);
-    odroid_system_emu_init(&gw_system_LoadState, &gw_system_SaveState, &gw_system_netplay_callback);
+    odroid_system_emu_init(&gw_system_LoadState, &gw_system_SaveState, NULL);
     rg_app_desc_t *app = odroid_system_get_app();
 
     // const int frameTime = get_frame_time(GW_REFRESH_RATE);
@@ -222,6 +213,9 @@ int app_main_gw(uint8_t load_state)
     unsigned int power_pressed = 0;
     printf("Main emulator loop start\n");
 
+    /* check if we to have to load state */
+    if (load_state != 0) gw_system_LoadState(NULL);
+
     clear_dwt_cycles();
 
     while (true)
@@ -242,7 +236,7 @@ int app_main_gw(uint8_t load_state)
             odroid_dialog_choice_t options[] = {
                 ODROID_DIALOG_CHOICE_LAST};
             odroid_overlay_game_menu(options);
-           //debug_enable = !debug_enable;
+            //debug_enable = !debug_enable;
         }
 
         if (power_pressed != joystick.values[ODROID_INPUT_POWER])
@@ -261,7 +255,7 @@ int app_main_gw(uint8_t load_state)
         // Call the emulator function with number of clock cycles
         // to execute on the emulated device
         // multiply the number of cycles to emulate by speedup factor
-        gw_system_run(GW_SYSTEM_CYCLES*(1+app->speedupEnabled));
+        gw_system_run(GW_SYSTEM_CYCLES * (1 + app->speedupEnabled));
 
         /* get how many cycles have been spent in the emulator */
         proc_cycles = get_dwt_cycles();
@@ -270,8 +264,7 @@ int app_main_gw(uint8_t load_state)
         if (!is_lcd_swap_pending())
         {
             gw_system_blit(lcd_get_active_buffer());
-            if (debug_enable)
-                gw_debug_bar();
+            if (debug_enable) gw_debug_bar();
             lcd_swap();
 
             /* get how many cycles have been spent in graphics rendering */

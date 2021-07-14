@@ -161,7 +161,7 @@ void _OSPI_Erase(OSPI_HandleTypeDef *hospi, uint8_t instruction, uint32_t addres
   sCommand.Instruction           = instruction;
   sCommand.InstructionSize       = HAL_OSPI_INSTRUCTION_8_BITS;
   sCommand.Address               = address;
-  sCommand.AddressSize           = HAL_OSPI_ADDRESS_32_BITS;
+  sCommand.AddressSize           = HAL_OSPI_ADDRESS_24_BITS;
   sCommand.AlternateBytesMode    = HAL_OSPI_ALTERNATE_BYTES_NONE;
   sCommand.NbData                = 0;
   sCommand.DummyCycles           = 0;
@@ -215,7 +215,7 @@ void  _OSPI_Program(OSPI_HandleTypeDef *hospi, uint32_t address, const uint8_t *
   sCommand.Instruction           = 0x02; // PP
   sCommand.InstructionSize       = HAL_OSPI_INSTRUCTION_8_BITS;
   sCommand.Address               = address;
-  sCommand.AddressSize           = HAL_OSPI_ADDRESS_32_BITS;
+  sCommand.AddressSize           = HAL_OSPI_ADDRESS_24_BITS;
   sCommand.AlternateBytesMode    = HAL_OSPI_ALTERNATE_BYTES_NONE;
   sCommand.NbData = buffer_size;
   sCommand.DummyCycles           = 0;
@@ -270,7 +270,7 @@ void _OSPI_Read(OSPI_HandleTypeDef *hospi, uint32_t address, uint8_t *buffer, si
   sCommand.Instruction           = 0x0B; // FAST_READ
   sCommand.InstructionSize       = HAL_OSPI_INSTRUCTION_8_BITS;
   sCommand.Address               = address;
-  sCommand.AddressSize           = HAL_OSPI_ADDRESS_32_BITS;
+  sCommand.AddressSize           = HAL_OSPI_ADDRESS_24_BITS;
   sCommand.AlternateBytesMode    = HAL_OSPI_ALTERNATE_BYTES_NONE;
   sCommand.NbData = buffer_size;
   sCommand.DummyCycles           = 10;
@@ -329,7 +329,7 @@ void OSPI_EnableMemoryMappedMode(OSPI_HandleTypeDef *spi) {
     .AddressDtrMode = HAL_OSPI_ADDRESS_DTR_DISABLE,
     .DataDtrMode = HAL_OSPI_DATA_DTR_DISABLE,
     .DQSMode = HAL_OSPI_DQS_DISABLE,
-    .AddressSize = HAL_OSPI_ADDRESS_32_BITS,
+    .AddressSize = HAL_OSPI_ADDRESS_24_BITS,
     .SIOOMode = HAL_OSPI_SIOO_INST_EVERY_CMD,
     .DummyCycles = 10,
     .AlternateBytesSize = HAL_OSPI_ALTERNATE_BYTES_8_BITS,
